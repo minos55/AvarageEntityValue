@@ -7,16 +7,16 @@ using System.Collections.Generic;
 
 namespace Nomnio.AverageEntityValue
 {
-    public class CalculateEntityValueService : IEntityValue
+    public class CalculateEntityValueServices : IEntityValue
     {
         private ILogger myLog;
         private string ConnectionString;
         private string TableName;
         CloudStorageAccount StorageAccount;
 
-        public CalculateEntityValueService(string connectionString, string tableName)
+        public CalculateEntityValueServices(string connectionString, string tableName)
         {
-            myLog = Log.ForContext<CalculateEntityValueService>();
+            myLog = Log.ForContext<CalculateEntityValueServices>();
             ConnectionString = connectionString;
             TableName = tableName;
             StorageAccount = CloudStorageAccount.Parse(ConnectionString);

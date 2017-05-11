@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AverageEntityValueLibrary",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AverageEntityValueConsole", "AverageEntityValueConsole\AverageEntityValueConsole.csproj", "{FBC57142-8050-4096-8D7A-92C0D8CA443E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AverageValueTest", "AverageValueTest\AverageValueTest.csproj", "{CDACA9D1-B628-4EFF-9EB2-2CB6EC1749DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FBC57142-8050-4096-8D7A-92C0D8CA443E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBC57142-8050-4096-8D7A-92C0D8CA443E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBC57142-8050-4096-8D7A-92C0D8CA443E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDACA9D1-B628-4EFF-9EB2-2CB6EC1749DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDACA9D1-B628-4EFF-9EB2-2CB6EC1749DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDACA9D1-B628-4EFF-9EB2-2CB6EC1749DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDACA9D1-B628-4EFF-9EB2-2CB6EC1749DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
