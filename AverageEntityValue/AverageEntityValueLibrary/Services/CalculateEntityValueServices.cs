@@ -29,8 +29,8 @@ namespace Nomnio.AverageEntityValue
         {
             var sourceTable = await GetTableAsync();
             var list = new List<AzureTableEntity>();
-            AverageEntitiesPropertyValues result;
-            var tableQuery = new TableQuery<AzureTableEntity>().Take(BatchSize);
+            AverageEntitiesPropertyValues result=new AverageEntitiesPropertyValues();
+            var tableQuery = new TableQuery().Take(BatchSize);
             TableContinuationToken continuationToken = null;
             do
             {
@@ -41,16 +41,20 @@ namespace Nomnio.AverageEntityValue
                 // continue on the next iteration (or null if it has reached the end).
                 continuationToken = tableQuerySegment.ContinuationToken;
                 
-                foreach (AzureTableEntity item in tableQuerySegment.Results)
+                
+                foreach (DynamicTableEntity item in tableQuerySegment.Results)
                 {
-                    var entity = new AzureTableEntity(item.PartitionKey, item.RowKey, item.Timestamp, item.Version, item.CorrelationId, item.ActorId, item.ActorCode, item.Schema, item.CausedBy, item.User, item.Id, item.Type, item.Data, item.Emitted);
+                    var partitionKey = item.PartitionKey;
+                    var rowKey = item.RowKey;
+
+                    //var entity = new AzureTableEntity(item.PartitionKey, item.RowKey, item.Timestamp, item.Version, item.CorrelationId, item.ActorId, item.ActorCode, item.Schema, item.CausedBy, item.User, item.Id, item.Type, item.Data, item.Emitted);
                     
-                    list.Add(entity);
+                    //list.Add(entity);
                 }
                 // Loop until a null continuation token is received, indicating the end of the table.
-                result = new AverageEntitiesPropertyValues(list);
-                myLog.Information("Averege PartitionKey value of the first {NumberOfEnteties} enteties is({AveragePartitionKeyValue}),averege RowKey value is ({AverageRowKeyValue}) and averege entetie value is ({AverageEntetieValue}).",
-                    list.Count,result.AveragePartitionKeyPropertyValue, result.AverageRowKeyPropertyValue,result.AverageEntityValue);
+                //result = new AverageEntitiesPropertyValues(list);
+                /*myLog.Information("Averege PartitionKey value of the first {NumberOfEnteties} enteties is({AveragePartitionKeyValue}),averege RowKey value is ({AverageRowKeyValue}) and averege entetie value is ({AverageEntetieValue}).",
+                    list.Count,result.AveragePartitionKeyPropertyValue, result.AverageRowKeyPropertyValue,result.AverageEntityValue);*/
             } while (continuationToken != null);
 
             return result;

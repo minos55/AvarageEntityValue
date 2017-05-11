@@ -7,6 +7,9 @@ namespace Nomnio.AverageEntityValue
 {
     public class AverageEntitiesPropertyValues
     {
+        public AverageEntitiesPropertyValues()
+        { }
+
         public AverageEntitiesPropertyValues(IEnumerable<AzureTableEntity> entityList)
         {
             AveragePartitionKeyPropertyValue = entityList.Average(r => r.PartitionKeyPropertyValue);
