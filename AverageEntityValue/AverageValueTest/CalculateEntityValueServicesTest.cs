@@ -16,9 +16,9 @@ namespace AverageValueTest
         const string targetConnectionString = "DefaultEndpointsProtocol=https;AccountName=mt1;AccountKey=O9+FoFPCQ4wqqfMJLm5I1zp7sePAgGGfowvDmCnGBt+AKlrdTXGOJ8QuzoQWz7yTsKPiOvBRE/8PfW5kRzzsTg==;EndpointSuffix=core.windows.net";
 
         [Theory]
-        [InlineData(sourceConnectionString, targetConnectionString,670,1)]
-        [InlineData(sourceConnectionString, targetConnectionString, 799, 2)]
-        public async Task Check_If_Average_Is_Calculated_Corectly_Test(string _sourceConnectionString, string _targetConnectionString,double expectedResult,int testDataSize)
+        [InlineData(sourceConnectionString, targetConnectionString,100,670,1)]
+        [InlineData(sourceConnectionString, targetConnectionString,250, 799, 2)]
+        public async Task Check_If_Average_Is_Calculated_Corectly_Test(string _sourceConnectionString, string _targetConnectionString,int batchSize,double expectedResult,int testDataSize)
         {
             var emptySourceTableName = RandomString(16);
             var emptySourceStorageAccount = GetCloudStorageAccount(_sourceConnectionString);
@@ -26,7 +26,7 @@ namespace AverageValueTest
             var fakeResults = PrepareTestData(testDataSize);
             await WriteToTableAsync(emptySourceTable, fakeResults);
 
-            var entityValue = new CalculateEntityValueServices(_targetConnectionString, emptySourceTableName);
+            var entityValue = new CalculateEntityValueServices(_targetConnectionString, emptySourceTableName, batchSize);
             var expected = new AverageEntitiesPropertyValues(fakeResults);
             var task = await entityValue.GetAverage();
             await DeleteTableAsync(emptySourceTable);

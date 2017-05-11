@@ -13,14 +13,16 @@ namespace Nomnio.AverageEntityValue
         private string ConnectionString;
         private string TableName;
         CloudStorageAccount StorageAccount;
-
-        public CalculateEntityValueServices(string connectionString, string tableName)
+        int BatchSize;
+        public CalculateEntityValueServices(string connectionString, string tableName,int batchSize)
         {
             myLog = Log.ForContext<CalculateEntityValueServices>();
             ConnectionString = connectionString;
             TableName = tableName;
+            BatchSize = batchSize;
             StorageAccount = CloudStorageAccount.Parse(ConnectionString);
             myLog.Information("Connected to {Connection}", StorageAccount);
+
         }
 
         public async Task<AverageEntitiesPropertyValues> GetAverage()
@@ -28,7 +30,7 @@ namespace Nomnio.AverageEntityValue
             var sourceTable = await GetTableAsync();
             var list = new List<AzureTableEntity>();
             AverageEntitiesPropertyValues result;
-            var tableQuery = new TableQuery<AzureTableEntity>();
+            var tableQuery = new TableQuery<AzureTableEntity>().Take(BatchSize);
             TableContinuationToken continuationToken = null;
             do
             {
@@ -47,8 +49,8 @@ namespace Nomnio.AverageEntityValue
                 }
                 // Loop until a null continuation token is received, indicating the end of the table.
                 result = new AverageEntitiesPropertyValues(list);
-                myLog.Information("Averege PartitionKey value of enteties is({AveragePartitionKeyValue}) and averege RowKey value is ({RowKeyString}).",
-                    result.AveragePartitionKeyPropertyValue, result.AverageRowKeyPropertyValue);
+                myLog.Information("Averege PartitionKey value of the first {NumberOfEnteties} enteties is({AveragePartitionKeyValue}),averege RowKey value is ({AverageRowKeyValue}) and averege entetie value is ({AverageEntetieValue}).",
+                    list.Count,result.AveragePartitionKeyPropertyValue, result.AverageRowKeyPropertyValue,result.AverageEntityValue);
             } while (continuationToken != null);
 
             return result;
