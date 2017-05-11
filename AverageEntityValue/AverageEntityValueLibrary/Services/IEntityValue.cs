@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Nomnio.AverageEntityValue.Interfaces
 {
     public interface IEntityValue
     {
-        Task Average();
+        Task<AverageEntitiesPropertyValues> GetAverage();
     }
 }
