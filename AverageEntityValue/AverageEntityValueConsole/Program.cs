@@ -13,8 +13,8 @@ namespace AverageEntityValueConsole
         static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.LiterateConsole(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{SourceContext}] [{Level}] {Message}{NewLine}{Exception}")
-                .WriteTo.RollingFile("log-{Date}.txt", outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{SourceContext}] [{Level}] {Message}{NewLine}{Exception}")
+                .WriteTo.Seq("http://localhost:5341")
+                //.WriteTo.Seq("{Timestamp:yyyy-MM-dd HH:mm:ss} [{SourceContext}] [{Level}] {Message}{NewLine}{Exception}")
                 .CreateLogger();
 
             MainAsync(args).GetAwaiter().GetResult();
@@ -49,7 +49,7 @@ namespace AverageEntityValueConsole
 
         static async Task CallServices(string connectionString, string tableName)
         {
-            var entityValue = new CalculateEntityValueServices(connectionString, tableName,100);
+            var entityValue = new CalculateEntityValueServices(connectionString, tableName,50,true);
             var task = entityValue.GetAverage();
             await Task.WhenAll(task);
         }
