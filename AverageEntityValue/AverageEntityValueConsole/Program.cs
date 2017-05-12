@@ -49,7 +49,7 @@ namespace AverageEntityValueConsole
 
         static async Task CallServices(string connectionString, string tableName)
         {
-            var entityValue = new CalculateEntityValueServices(connectionString, tableName,50,true);
+            var entityValue = new CalculateEntityValueServices(connectionString, tableName,50);
             var task = entityValue.GetAverage();
             await Task.WhenAll(task);
         }

@@ -12,9 +12,8 @@ namespace Nomnio.AverageEntityValue
         private string TableName;
         private CloudStorageAccount StorageAccount;
         private int BatchSize;
-        private bool ShowLogOutput;
 
-        public CalculateEntityValueServices(string connectionString, string tableName, int batchSize, bool showLogOutput)
+        public CalculateEntityValueServices(string connectionString, string tableName, int batchSize)
         {
             myLog = Log.ForContext<CalculateEntityValueServices>();
             ConnectionString = connectionString;
@@ -22,7 +21,6 @@ namespace Nomnio.AverageEntityValue
             BatchSize = batchSize;
             StorageAccount = CloudStorageAccount.Parse(ConnectionString);
             myLog.Information("Connected to {Connection}", StorageAccount);
-            ShowLogOutput = showLogOutput;
         }
 
         public async Task<AverageEntityValues> GetAverage()
